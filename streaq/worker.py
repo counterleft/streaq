@@ -240,8 +240,8 @@ class Worker(Generic[WD]):
             Saves Redis health in Redis, then logs worker and Redis health.
             """
             pipe = await self.redis.pipeline(transaction=False)
-            await pipe.info("Memory")
-            await pipe.info("Clients")
+            await pipe.info("memory")
+            await pipe.info("clients")
             await pipe.dbsize()
             for priority in TaskPriority:
                 await pipe.xlen(self.stream_key + priority.value)
